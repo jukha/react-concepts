@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
 const TodoContext = createContext();
 function TodoProvider({ children }) {
@@ -6,11 +6,13 @@ function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs = [
-    { id: 0, name: "all" },
-    { id: 1, name: "active" },
-    { id: 2, name: "completed" },
-  ];
+  const tabs = useMemo(() => {
+    return [
+      { id: 0, name: "all" },
+      { id: 1, name: "active" },
+      { id: 2, name: "completed" },
+    ];
+  }, []);
 
   const dummyFunction = function () {
     console.log(
@@ -18,22 +20,20 @@ function TodoProvider({ children }) {
     );
   };
 
-  return (
-    <TodoContext.Provider
-      value={{
-        darkMode,
-        setDarkMode,
-        todos,
-        setTodos,
-        activeTab,
-        setActiveTab,
-        tabs,
-        dummyFunction,
-      }}
-    >
-      {children}
-    </TodoContext.Provider>
-  );
+  const value = useMemo(() => {
+    return {
+      darkMode,
+      setDarkMode,
+      todos,
+      setTodos,
+      activeTab,
+      setActiveTab,
+      tabs,
+      dummyFunction,
+    };
+  }, [activeTab, darkMode, tabs, todos]);
+
+  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 }
 
 export { TodoContext, TodoProvider };

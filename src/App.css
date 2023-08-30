@@ -113,3 +113,15 @@ label {
 .completed {
   text-decoration: line-through;
 }
+
+footer {
+  background: rgb(47, 47, 111);
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 10px;
+  text-align: center;
+}
