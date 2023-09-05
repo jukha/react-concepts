@@ -11,3 +11,5 @@ Optimization for the context re-renders should be done if following things are t
 1. The state in the context need to change all the time
 2. The context has many consumers
 3. The app is slow and laggy.
+
+It is better to create one context per state.
